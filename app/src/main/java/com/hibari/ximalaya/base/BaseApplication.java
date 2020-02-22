@@ -2,6 +2,7 @@ package com.hibari.ximalaya.base;
 
 import android.app.Application;
 
+import com.hibari.ximalaya.utils.LogUtil;
 import com.ximalaya.ting.android.opensdk.constants.ConstantsOpenSdk;
 import com.ximalaya.ting.android.opensdk.constants.DTransferConstants;
 import com.ximalaya.ting.android.opensdk.datatrasfer.CommonRequest;
@@ -18,8 +19,6 @@ public class BaseApplication extends Application {
     public void onCreate() {
         super.onCreate();
 
-        ConstantsOpenSdk.isDebug = true;
-
         CommonRequest mXimalaya = CommonRequest.getInstanse();
         if(DTransferConstants.isRelease) {
             String mAppSecret = "8646d66d6abe2efd14f2891f9fd1c8af";
@@ -32,6 +31,10 @@ public class BaseApplication extends Application {
             mXimalaya.setPackid("com.ximalaya.qunfeng");
             mXimalaya.init(this ,mAppSecret);
         }
+
+        ConstantsOpenSdk.isDebug = true;
+        //初始化LogUtil
+        LogUtil.init(this.getPackageName(), false);
 
     }
 }
